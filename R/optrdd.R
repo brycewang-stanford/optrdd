@@ -363,14 +363,14 @@ optrdd = function(X,
         cbind(Matrix::Diagonal(num.realized.0, -1),
               Matrix::Matrix(0, num.realized.0, num.realized.1),
               0, 0, 1, xx.centered[realized.idx.0,],
-              if(change.slope) { -xx.centered[realized.idx.0,] } else { numeric() },
+              if(change.slope) { -xx.centered[realized.idx.0,] } else { NULL },
               selector.0,
-              if(two.fun) { Matrix::Matrix(0, num.realized.0, num.df) } else { numeric() }),
+              if(two.fun) { Matrix::Matrix(0, num.realized.0, num.df) } else { NULL }),
         # Defines G(1) in terms of the other problem parameters (equality constraint)
         cbind(Matrix::Matrix(0, num.realized.1, num.realized.0),
               Matrix::Diagonal(num.realized.1, -1),
               0, 1, 0, xx.centered[realized.idx.1,],
-              if(change.slope) { xx.centered[realized.idx.1,] } else { numeric() },
+              if(change.slope) { xx.centered[realized.idx.1,] } else { NULL },
               if(two.fun) {
                   cbind(Matrix::Matrix(0, num.realized.1, num.df), selector.1)
               } else {
@@ -383,13 +383,13 @@ optrdd = function(X,
         if(two.fun) {
             cbind(Matrix::Matrix(0, length(zeroed.idx), num.realized.0 + num.realized.1 + num.lambda + num.df),
                   centering.matrix)
-        } else { numeric() },
+        } else { NULL },
         # Bound the second derivative of f_0 by lambda_1
         cbind(Matrix::Matrix(0, 2 * nrow(D2), num.realized.0 + num.realized.1),
               bin.width^2,
               matrix(0, 2 * nrow(D2), num.lambda - 1),
               rbind(D2, -D2),
-              if (two.fun) { Matrix::Matrix(0, 2 * nrow(D2), num.df) } else { numeric() }),
+              if (two.fun) { Matrix::Matrix(0, 2 * nrow(D2), num.df) } else { NULL }),
         # Bound the second derivative of f_1 by lambda_1
         if (two.fun) {
             cbind(Matrix::Matrix(0, 2 * nrow(D2), num.realized.0 + num.realized.1),
